@@ -26,7 +26,7 @@ If you are planning on provisioning all the accounts (`prod`, `staging`, `dev`, 
 * Login to the `root` account with the root credentials and do the following:
   * Create new IAM group `admin`
   * Assign `AdministratorAccess` policy to the group
-  * Create an IAM user with the name `admin`
+  * Create an IAM user with the name `admin@cloudposse.co`
   * Add the user to the group
   * Enable MFA for the user (we recommend using Google Authenticator as Virtual MFA device)
   * Generate `Access Key ID` and `Secret Access Key` for the user (you'll need them in the next steps)
@@ -69,7 +69,7 @@ Update all ENV variables in the two `Dockefiles` in the repos with the values fo
  * Change `DOCKER_IMAGE`
  * Replace the namespace `cpco` with your own in all ENV vars
  * Change the domain names from `cloudposse.co` to your own
- * In root, update the account ID (`TF_VAR_account_id`) to your own `root` account ID
+ * In root, update the account ID (`AWS_ACCOUNT_ID`) to your own `root` account ID
  * Change the IAM user names for the accounts
  * Update the account emails
  * In `testing`, select only the resources you need to provision (using `COPY --from=terraform-root-modules`)
@@ -152,9 +152,9 @@ Comment out the `backend          "s3"             {}` section in `tfstate-backe
 
 Comment out the `assume_role` section in `tfstate-backend/main.tf`
 
-Run `init-terraform`
+Run `tfenv terraform init`
 
-Run `terraform plan` and then `terraform apply`
+Run `tfenv terraform plan` and then `tfenv terraform apply`
 
 Re-enable `backend          "s3"             {}` section in `tfstate-backend/main.tf`
 
